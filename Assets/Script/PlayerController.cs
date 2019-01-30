@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Goal"))
         {
             print("You reached the Goal " + other.tag);
-            GameController.instance.increaseLevel();
+            GameController.instance.IncreaseLevel();
             //Destroy(other.gameObject);
             //increse count
 

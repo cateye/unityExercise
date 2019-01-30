@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 //This is a class that are going to control all the variables that are changing across the game
 //let say in a up level
 
@@ -15,7 +16,9 @@ public class GameController : MonoBehaviour
     //hightest level max num of levels in the game
     public int highestLevel = 2;
 
-    HudManager hm;
+    public HudManager hudManager;
+
+
 
 
     //we create a instance of this class, is stactic because we need it across the game.
@@ -32,9 +35,14 @@ public class GameController : MonoBehaviour
         else if(instance != this)
         {
             Destroy(gameObject);
+            //not clear why this fixed the issue about increase the score when the I was kill by a enemy
+            instance.hudManager = FindObjectOfType<HudManager>();
         }
 
-        hm = FindObjectOfType<HudManager>();
+        //
+        hudManager = FindObjectOfType<HudManager>();
+
+
 
         //In order to keep this object between the Game we avoid to distroy this instance
         DontDestroyOnLoad(gameObject);
@@ -45,8 +53,8 @@ public class GameController : MonoBehaviour
     public void IncreaseScore(int amount)
     {
         score += amount;
-        if (hm != null)
-            hm.resetHub();
+        if (hudManager != null)
+            hudManager.ResetHub(); 
         if (score > highScore)
         {
             highScore = score;
@@ -57,9 +65,10 @@ public class GameController : MonoBehaviour
     public void ResetGame()
     {
         //reset score
+        //highScore = 0;
         score = 0;
-        if(hm != null)
-            hm.resetHub();
+        if (hudManager != null)
+            hudManager.ResetHub();
         //change current level
         currentLevel = 1;
         //load level 1 scene
@@ -67,7 +76,7 @@ public class GameController : MonoBehaviour
 
     }
 
-    public void increaseLevel()
+    public void IncreaseLevel()
     {
         if(currentLevel < highestLevel)
         {

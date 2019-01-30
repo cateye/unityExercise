@@ -10,10 +10,12 @@ public class HudManager : MonoBehaviour
 
     void Start()
     {
-        resetHub();
+        print("HudManager Started");
+        ResetHub();
+
     }
 
-    public void resetHub()
+    public void ResetHub()
     {
         scoreLabel.text = "Score: " + GameController.instance.score;
     }
